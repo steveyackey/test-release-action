@@ -15,4 +15,4 @@ runs:
       shell: bash
     - id: set-output
       shell: bash
-      run: echo "::set-output name=who-you-greeted::$(echo ${{ env.INPUTS_WHO-TO-GREET }})"  
+      run: echo "::set-output name=who-you-greeted::$(echo ${{ inputs.who-to-greet }})"  
