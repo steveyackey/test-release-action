@@ -1,5 +1,4 @@
 name: Testing test-action
-description: Test workflow to make sure our action works
 
 on: push
 
