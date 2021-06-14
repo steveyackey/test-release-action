@@ -7,12 +7,13 @@ inputs:
 outputs:
   who-you-greeted:
     description: person you've greeted
+    value: ${{ steps.set-output.outputs.who-you-greeted }}
 
 runs:
   using: composite
   steps:
     - run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
-    - id: set-output
-      shell: bash
+    - shell: bash
+      id: set-output
       run: echo "::set-output name=who-you-greeted::$(echo ${{ inputs.who-to-greet }})"  
