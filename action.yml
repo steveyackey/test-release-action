@@ -14,4 +14,5 @@ runs:
     - run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
     - id: set-output
+      shell: bash
       run: echo "::set-output name=who-you-greeted::$(echo ${{ env.INPUTS_WHO-TO-GREET }})"  
