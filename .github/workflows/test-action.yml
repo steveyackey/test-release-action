@@ -1,0 +1,12 @@
+name: Testing test-action
+description: Test workflow to make sure our action works
+
+on: push
+
+jobs:
+  test-action:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: ./
+        id: outputstep
+      - run: echo "Who you greeted - ${{ steps.outputs.outputstep }}"

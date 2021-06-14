@@ -1,0 +1,17 @@
+name: test action
+inputs:
+  who-to-greet:
+    description: person you're greeting
+    default: bob
+    required: false
+outputs:
+  who-you-greeted:
+    description: person you've greeted
+
+runs:
+  using: composite
+  steps:
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+    - id: set-output
+      run: echo "::set-output name=who-you-greeted::$(echo ${{ env.INPUTS_WHO-TO-GREET }})"  
