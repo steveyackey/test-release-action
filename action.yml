@@ -16,6 +16,4 @@ runs:
       shell: bash
     - shell: bash
       id: set-output
-      run: echo "::set-output name=who-you-greeted::$(echo ${{ inputs.who-to-greet }})"  
-
-      
+      run: echo "::set-output name=who-you-greeted::$(echo ${{ inputs.who-to-greet }})"
