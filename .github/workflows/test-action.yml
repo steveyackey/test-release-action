@@ -23,7 +23,7 @@ jobs:
           echo "Commit message: $commitMessage"
           if [[ "$commitMessage" == *"#major"* ]]; then
             export finalTag="v$(semver -i major $currentTag)"
-          else if [[ "$commitMessage" == *"#minor"* ]]; then
+          elif [[ "$commitMessage" == *"#minor"* ]]; then
             export finalTag="v$(semver -i minor $currentTag)"
           else
             export finalTag="v$(semver -i patch $currentTag)"
