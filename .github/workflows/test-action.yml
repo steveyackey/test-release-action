@@ -20,6 +20,7 @@ jobs:
           export currentTag=$(git tag -l --sort=-v:refname | head -n 1)
           echo "Current Tag: $currentTag"
           export commitMessage=${{ github.event.head_commit.message }}
+          echo "Commit message: $commitMessage"
           if [[ "$commitMessage" == *"#major"* ]]; then
             export finalTag="v$(semver -i major $currentTag)"
           else if [[ "$commitMessage" == *"#minor"* ]]; then
