@@ -15,7 +15,18 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.26.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
+        run: |
+          sudo apt install -y node-semver
+          export currentTag=$(git tag -l --sort=-v:refname | head -n 1)
+          echo "Current Tag: $currentTag"
+          export commitMessage=${{ github.event.head_commit.message }}
+          if [[ "$commitMessage" == *"#major"*]]; then
+            export finalTag="v$(semver -i major $currentTag)"
+          else if [[ "$commitMessage" == *"#minor"*]]; then
+            export finalTag="v$(semver -i minor $currentTag)"
+          else
+            export finalTag="v$(semver -i patch $currentTag)"
+          fi
+          git tag $finalTag
+          git tag ${finalTag%%.*} -f
+          git push --tags -f
