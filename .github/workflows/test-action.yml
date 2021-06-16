@@ -47,5 +47,5 @@ jobs:
       - name: Test action
         run: |
           echo "Initial: ${{ steps.bump.outputs.initial-tag }}"
-          echo "Full: ${{ steps.bump.outputs.resulting-full-tag}}"
-          echo "Major: ${{ steps.bump.outputs.resulting-full-tag }}"
+          echo "Full: ${{ steps.bump.outputs.resulting-semver-tag}}"
+          echo "Major: ${{ steps.bump.outputs.resulting-major-version }}"
