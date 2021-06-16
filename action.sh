@@ -2,7 +2,7 @@
 set -eo pipefail
 
 if [[ -n "${INPUT_INITIAL_TAG}" ]]; then
-    current_tag="$(echo ${INPUT_INITIAL_TAG} | grep v[0-9\.].*)"
+    current_tag="$(echo ${INPUT_INITIAL_TAG} | grep v[0-9\.].* || echo "")"
     echo "Original Input: ${INPUT_INITIAL_TAG}"
 else
     current_tag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
