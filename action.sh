@@ -23,6 +23,9 @@ fi
 
 resulting_major_version="${resulting_semver_tag%%.*} "
 
+echo "Resulting semVer tag: ${resulting_semver_tag}"
+echo "Resulting major version tag: ${resulting_major_version}"
+
 echo "::set-output name=initial-tag::$current_tag"
 echo "::set-output name=resulting-semver-tag::$resulting_semver_tag"
 echo "::set-output name=resulting-major-version::$resulting_major_version"
