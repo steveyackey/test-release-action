@@ -16,19 +16,16 @@ jobs:
       
       - name: Bump version and push tag
         run: |
-          if [[ $(which semver) == "" ]]; then
-            npm i semver
-          fi
           export currentTag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
           echo "Current Tag: $currentTag"
           export commitMessage="${{ github.event.head_commit.message }}"
           echo "Commit message: $commitMessage" 
           if [[ "$commitMessage" == *"#major"* ]]; then
-            export finalTag="v$(semver -c -i major $currentTag)"
+            export finalTag="v$(npx semver -c -i major $currentTag)"
           elif [[ "$commitMessage" == *"#minor"* ]]; then
-            export finalTag="v$(semver -c -i minor $currentTag)"
+            export finalTag="v$(npx semver -c -i minor $currentTag)"
           else
-            export finalTag="v$(semver -c -i patch $currentTag)"
+            export finalTag="v$(npx semver -c -i patch $currentTag)"
           fi
           if [[ "$finalTag" == "" ]]; then
             export finalTag="v1.0.0"
