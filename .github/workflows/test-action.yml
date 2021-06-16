@@ -23,7 +23,7 @@ jobs:
             patch-result: "v1.0.0"
             minor-result: "v1.0.0"
             major-result: "v1.0.0"
-            major-tag-result: "v2" 
+            major-tag-result: "v1" 
     steps:
       - uses: actions/checkout@v2
         with:
