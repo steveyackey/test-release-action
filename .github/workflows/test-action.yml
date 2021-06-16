@@ -39,7 +39,7 @@ jobs:
 
       - name: Verify Results
         run: |
-          if [[ "${{ steps.semver-bump-action-patch.output.resulting-semver-tag}}" != "${{ matrix.patch-result }}"]]; then
+          if [[ "${{ steps.semver-bump-action-patch.output.resulting-semver-tag}}" != "${{ matrix.patch-result }}" ]]; then
             echo "❌ Patch result failed for ${{ matrix.initial-tag }} as the input."
             exit 1
           fi
@@ -55,7 +55,7 @@ jobs:
 
       - name: Verify Results
         run: |
-          if [[ "${{ steps.semver-bump-action-minor.resulting-semver-tag}}" != "${{ matrix.minor-result }}"]]; then
+          if [[ "${{ steps.semver-bump-action-minor.resulting-semver-tag}}" != "${{ matrix.minor-result }}" ]]; then
             echo "❌ minor result failed for ${{ matrix.initial-tag }} as the input."
             exit 1
           fi
@@ -71,7 +71,7 @@ jobs:
 
       - name: Verify Results
         run: |
-          if [[ "${{ steps.semver-bump-action-major.resulting-semver-tag}}" != "${{ matrix.major-result }}"]]; then
+          if [[ "${{ steps.semver-bump-action-major.resulting-semver-tag}}" != "${{ matrix.major-result }}" ]]; then
             echo "❌ major result failed for ${{ matrix.initial-tag }} as the input."
             exit 1
           fi
@@ -87,7 +87,7 @@ jobs:
 
       - name: Verify Results
         run: |
-          if [[ "${{ steps.semver-bump-action-major-tag.resulting-major-tag}}" != "${{ matrix.major-tag-result }}"]]; then
+          if [[ "${{ steps.semver-bump-action-major-tag.resulting-major-tag}}" != "${{ matrix.major-tag-result }}" ]]; then
             echo "❌ major tag result failed for ${{ matrix.initial-tag }} as the input."
             exit 1
           fi
