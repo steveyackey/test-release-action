@@ -1,6 +1,10 @@
 name: Test semver-bump-action
 
-on: push
+on: 
+  push:
+    branches:
+      - "!main"
+  workflow_dispatch:
 
 jobs:
   test-action:
