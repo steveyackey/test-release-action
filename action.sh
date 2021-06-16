@@ -10,18 +10,14 @@ echo "Current Tag: $current_tag"
 
 echo "Commit message: $INPUT_COMMIT_MESSAGE" 
 
-
-if [[ "$INPUT_COMMIT_MESSAGE" == *"#major"* ]]; then
+if [[ -z "$current_tag" ]]; then
+  resulting_semver_tag="v1.0.0"
+elif [[ "$INPUT_COMMIT_MESSAGE" == *"#major"* ]]; then
   resulting_semver_tag="v$(npx semver -c -i major $current_tag)"
 elif [[ "$INPUT_COMMIT_MESSAGE" == *"#minor"* ]]; then
  resulting_semver_tag="v$(npx semver -c -i minor $current_tag)"
 else
  resulting_semver_tag="v$(npx semver -c -i patch $current_tag)"
-fi
-
-# Double check that the semver is set correctly, if not, fall back to 1.0.0
-if [[ "$resulting_semver_tag" == "" ]]; then
- resulting_semver_tag="v1.0.0"
 fi
 
 resulting_major_version="${resulting_semver_tag%%.*}"
