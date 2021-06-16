@@ -1,19 +1,36 @@
-name: test action
+name: "SemVer Bump"
+description: |
+  A GitHub Action for bumping semantic version tags.
+  Tags the commit with both the full semantic version, as well as updating the tag for the major version
+  to point to the current commit. This action requires the actions/checkout action prior to running this.
 inputs:
-  who-to-greet:
-    description: person you're greeting
-    default: bob
+  dry-run:
+    description: "Value: true/false. When true, it doesn't tag the commit, it only outputs what would've been tagged."
+    required: false
+    default: "false"
+  initial-tag:
+    description: "Used to override the initial tag to bump up from"
+    required: false
+  commit-message:
+    description: "Used to override the commit message. Generally used for testing the action."
     required: false
 outputs:
-  who-you-greeted:
-    description: person you've greeted
-    value: ${{ steps.set-output.outputs.who-you-greeted }}
-
+  current-tag:
+    description: "The latest tag prior to updating found by 'git tag -l'"
+    value: ${{ steps.semver-bump.outputs.initial-tag }}
+  resulting-semver-tag:
+    description: "The full resulting tag in semver format (v1.0.0)"
+    value: ${{ steps.semver-bump.outputs.resulting-full-tag }}
+  resulting-major-tag:
+    description: "The resulting full major version (v1)"
+    value: ${{ steps.semver-bump.outputs.resulting-full-tag }}
 runs:
-  using: composite
+  using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - id: semver-bump
+      env:
+        INPUT_DRY_RUN: ${{ inputs.input-dry-run }}
+        INPUT_INITIAL_TAG: ${{ inputs.initial-tag }}
+        INPUT_COMMIT_MESSAGE: ${{ inputs.commit-message }}
+      run: ./action.sh
       shell: bash
-    - shell: bash
-      id: set-output
-      run: echo "::set-output name=who-you-greeted::$(echo ${{ inputs.who-to-greet }})"

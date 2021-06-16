@@ -1,57 +1,94 @@
-name: Testing test-action
+name: Testing semver-bump-action
 
 on: push
 
 jobs:
   test-action:
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
+      matrix: 
+        include:
+          - initial-tag: "v1.0.0"
+            patch-result: "v1.0.1"
+            minor-result: "v1.1.0"
+            major-result: "v2.0.0"
+            major-tag-result: "v2"
+          - initial-tag: "v1"
+            patch-result: "v1.0.1"
+            minor-result: "v1.1.0"
+            major-result: "v2.0.0"
+            major-tag-result: "v2"
+          - initial-tag: "notAVersion"
+            patch-result: "v1.0.0"
+            minor-result: "v1.0.0"
+            major-result: "v1.0.0"
+            major-tag-result: "v2" 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - uses: ./
-        id: outputstep
-      - run: echo "Who you greeted - ${{ steps.outputstep.outputs.who-you-greeted }}"
-      - uses: actions/checkout@v2
-      
-      - name: Bump version and push tag
-        id: bump
-        env:
+
+      - name: Run semver-bump-action - patch
+        uses: ./
+        id: semver-bump-action-patch
+        with:
           INPUT_DRY_RUN: "true"
+          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
+          INPUT_COMMIT_MESSAGE: "Testing patch version bump. #patch"
+
+      - name: Verify Results
         run: |
-          export currentTag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
-          echo "Current Tag: $currentTag"
-          export commitMessage="${{ github.event.head_commit.message }}"
-          echo "Commit message: $commitMessage" 
-          if [[ "$commitMessage" == *"#major"* ]]; then
-            export finalTag="v$(npx semver -c -i major $currentTag)"
-          elif [[ "$commitMessage" == *"#minor"* ]]; then
-            export finalTag="v$(npx semver -c -i minor $currentTag)"
-          else
-            export finalTag="v$(npx semver -c -i patch $currentTag)"
+          if [[ "${{ steps.semver-bump-action-patch.output.resulting-semver-tag}}" != "${{ matrix.patch-result }}"]]; then
+            echo "❌ Patch result failed for ${{ matrix.initial-tag }} as the input."
+            exit 1
           fi
-          if [[ "$finalTag" == "" ]]; then
-            export finalTag="v1.0.0"
-          fi
-          export finalMajorVersion=${finalTag%%.*} 
-          echo "::set-output name=initial-tag::$currentTag"
-          echo "::set-output name=resulting-semver-tag::$finalTag"
-          echo "::set-output name=resulting-major-version::$finalMajorVersion"
-          if [[ "$INPUT_DRY_RUN" == "true" ]]; then
-            echo "Dry-run enabled."
-            exit 0 
-          fi
-          git tag $finalTag
-          git tag ${finalTag%%.*} -f
-          git push --tags -f
-      - name: Test action
+          echo "✅ Success for updating the patch with ${{ matrix.initial-tag }} as the input."
+
+      - name: Run semver-bump-action - minor
+        uses: ./
+        id: semver-bump-action-minor
+        with:
+          INPUT_DRY_RUN: "true"
+          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
+          INPUT_COMMIT_MESSAGE: "Testing minor version bump. #minor"
+
+      - name: Verify Results
         run: |
-          echo "Initial: ${{ steps.bump.outputs.initial-tag }}"
-          echo "Full: ${{ steps.bump.outputs.resulting-semver-tag}}"
-          echo "Major: ${{ steps.bump.outputs.resulting-major-version }}"
-          Green='\033[0;32m'
-          Yellow='\033[0;33m'
-          Red='\033[0;31m' 
-          echo -e "$Green woot! ✅"
-          echo -e "$Yellow woot! 👋"
-          echo -e "$Red woot! ❌"
+          if [[ "${{ steps.semver-bump-action-minor.resulting-semver-tag}}" != "${{ matrix.minor-result }}"]]; then
+            echo "❌ minor result failed for ${{ matrix.initial-tag }} as the input."
+            exit 1
+          fi
+          echo "✅ Success for updating the minor with ${{ matrix.initial-tag }} as the input."
+
+      - name: Run semver-bump-action - major
+        uses: ./
+        id: semver-bump-action-major
+        with:
+          INPUT_DRY_RUN: "true"
+          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
+          INPUT_COMMIT_MESSAGE: "Testing major version bump. #major"
+
+      - name: Verify Results
+        run: |
+          if [[ "${{ steps.semver-bump-action-major.resulting-semver-tag}}" != "${{ matrix.major-result }}"]]; then
+            echo "❌ major result failed for ${{ matrix.initial-tag }} as the input."
+            exit 1
+          fi
+          echo "✅ Success for updating the major with ${{ matrix.initial-tag }} as the input."
+      
+      - name: Run semver-bump-action - major tag only
+        uses: ./
+        id: semver-bump-action-major-tag
+        with:
+          INPUT_DRY_RUN: "true"
+          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
+          INPUT_COMMIT_MESSAGE: "Testing major version bump. #major"
+
+      - name: Verify Results
+        run: |
+          if [[ "${{ steps.semver-bump-action-major-tag.resulting-major-tag}}" != "${{ matrix.major-tag-result }}"]]; then
+            echo "❌ major tag result failed for ${{ matrix.initial-tag }} as the input."
+            exit 1
+          fi
+          echo "✅ Success for updating the major tag with ${{ matrix.initial-tag }} as the input."
