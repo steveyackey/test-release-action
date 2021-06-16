@@ -24,7 +24,7 @@ if [[ "$resulting_semver_tag" == "" ]]; then
  resulting_semver_tag="v1.0.0"
 fi
 
-resulting_major_version="${resulting_semver_tag%%.*} "
+resulting_major_version="${resulting_semver_tag%%.*}"
 
 echo "Resulting semVer tag: ${resulting_semver_tag}"
 echo "Resulting major version tag: ${resulting_major_version}"
