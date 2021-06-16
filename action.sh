@@ -1,14 +1,17 @@
 #!/bin/bash
 set -eo pipefail
 
-current_tag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
+if [[ -n "${INPUT_INITIAL_TAG}" ]]; then
+    current_tag="${INPUT_INITIAL_TAG}"
+else
+    current_tag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
+fi 
 echo "Current Tag: $current_tag"
 
 echo "Commit message: $INPUT_COMMIT_MESSAGE" 
 
-if [[ -n "${INPUT_INITIAL_TAG}" ]]; then
-    resulting_semver_tag="${INPUT_INITIAL_TAG}"
-elif [[ "$INPUT_COMMIT_MESSAGE" == *"#major"* ]]; then
+
+if [[ "$INPUT_COMMIT_MESSAGE" == *"#major"* ]]; then
   resulting_semver_tag="v$(npx semver -c -i major $current_tag)"
 elif [[ "$INPUT_COMMIT_MESSAGE" == *"#minor"* ]]; then
  resulting_semver_tag="v$(npx semver -c -i minor $current_tag)"
