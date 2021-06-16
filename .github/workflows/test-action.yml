@@ -6,7 +6,7 @@ jobs:
   test-action:
     runs-on: ubuntu-20.04
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix: 
         include:
           - initial-tag: "v1.0.0"

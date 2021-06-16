@@ -20,7 +20,7 @@ outputs:
     value: ${{ steps.semver-bump.outputs.initial-tag }}
   resulting-semver-tag:
     description: "The full resulting tag in semver format (v1.0.0)"
-    value: ${{ steps.semver-bump.outputs.resulting-full-tag }}
+    value: ${{ steps.semver-bump.outputs.resulting-semver-tag }}
   resulting-major-tag:
     description: "The resulting full major version (v1)"
     value: ${{ steps.semver-bump.outputs.resulting-full-tag }}
