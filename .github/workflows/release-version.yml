@@ -13,4 +13,5 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: ./
+      - name: patriotsoftware/semver-bump-action
+        uses: ./
