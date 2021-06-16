@@ -35,7 +35,7 @@ jobs:
           fi
           export finalMajorVersion=${finalTag%%.*} 
           echo "::set-output name=initial-tag::$currentTag"
-          echo "::set-output name=resulting-semver-tag"::$finalTag"
+          echo "::set-output name=resulting-semver-tag::$finalTag"
           echo "::set-output name=resulting-major-version::$finalMajorVersion"
           if [[ "$INPUT_DRY_RUN" == "true" ]]; then
             echo "Dry-run enabled."
