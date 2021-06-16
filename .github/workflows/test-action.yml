@@ -19,7 +19,7 @@ jobs:
             minor-result: "v1.1.0"
             major-result: "v2.0.0"
             major-tag-result: "v2"
-          - initial-tag: "notAVersion"
+          - initial-tag: "vNotANumber"
             patch-result: "v1.0.0"
             minor-result: "v1.0.0"
             major-result: "v1.0.0"
