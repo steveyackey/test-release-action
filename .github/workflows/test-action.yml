@@ -15,6 +15,9 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Bump version and push tag
+        id: bump
+        env:
+          INPUT_DRY_RUN: true
         run: |
           export currentTag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
           echo "Current Tag: $currentTag"
@@ -30,6 +33,19 @@ jobs:
           if [[ "$finalTag" == "" ]]; then
             export finalTag="v1.0.0"
           fi
+          export finalMajorVersion=${finalTag%%.*} 
+          echo "::set-output name=initial-tag::$currentTag"
+          echo "::set-output name=resulting-semver-tag"::$finalTag"
+          echo "::set-output name=resulting-major-version::$finalMajorVersion"
+          if [[ "$INPUT_DRY_RUN" == "true" ]]; then
+            echo "Dry-run enabled."
+            exit 0 
+          fi
           git tag $finalTag
           git tag ${finalTag%%.*} -f
           git push --tags -f
+      - name: Test action
+        run: |
+          echo "Initial: ${{ steps.bump.outputs.initial-tag }}"
+          echo "Full: ${{ steps.bump.outputs.resulting-full-tag}}"
+          echo "Major: ${{ steps.bump.outputs.resulting-full-tag }}"
