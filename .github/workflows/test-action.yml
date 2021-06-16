@@ -49,6 +49,9 @@ jobs:
           echo "Initial: ${{ steps.bump.outputs.initial-tag }}"
           echo "Full: ${{ steps.bump.outputs.resulting-semver-tag}}"
           echo "Major: ${{ steps.bump.outputs.resulting-major-version }}"
-          echo $(tput setaf 1) woot!
-          echo $(tput setaf 2) woot!
-          echo $(tput setaf 3) woot!
+          Green='\033[0;32m'
+          Yellow='\033[0;33m'
+          Red='\033[0;31m' 
+          echo -e "$Green woot!"
+          echo -e "$Yellow woot!"
+          echo -e "$Red woot!"
