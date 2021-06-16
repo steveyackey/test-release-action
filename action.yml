@@ -29,7 +29,7 @@ runs:
   steps:
     - id: semver-bump
       env:
-        INPUT_DRY_RUN: ${{ inputs.input-dry-run }}
+        INPUT_DRY_RUN: ${{ inputs.dry-run }}
         INPUT_INITIAL_TAG: ${{ inputs.initial-tag }}
         INPUT_COMMIT_MESSAGE: ${{ inputs.commit-message }}
       run: ./action.sh
