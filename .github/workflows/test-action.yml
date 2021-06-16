@@ -52,6 +52,6 @@ jobs:
           Green='\033[0;32m'
           Yellow='\033[0;33m'
           Red='\033[0;31m' 
-          echo -e "$Green woot!"
-          echo -e "$Yellow woot!"
-          echo -e "$Red woot!"
+          echo -e "$Green woot! :white_check_mark: "
+          echo -e "$Yellow woot! :wave:"
+          echo -e "$Red woot! :x:"
