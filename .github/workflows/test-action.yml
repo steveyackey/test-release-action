@@ -17,7 +17,7 @@ jobs:
       - name: Bump version and push tag
         id: bump
         env:
-          INPUT_DRY_RUN: true
+          INPUT_DRY_RUN: "true"
         run: |
           export currentTag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
           echo "Current Tag: $currentTag"
