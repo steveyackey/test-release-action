@@ -1,4 +1,4 @@
-name: Testing semver-bump-action
+name: Test semver-bump-action
 
 on: push
 
