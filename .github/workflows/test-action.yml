@@ -2,8 +2,7 @@ name: Test semver-bump-action
 
 on: 
   push:
-    branches:
-      - "!main"
+    
   workflow_dispatch:
 
 jobs:
@@ -33,7 +32,12 @@ jobs:
             patch-result: "v1.0.0"
             minor-result: "v1.0.0"
             major-result: "v1.0.0"
-            major-tag-result: "v1" 
+            major-tag-result: "v1"
+          - initial-tag: ""
+            patch-result: "v1.0.0"
+            minor-result: "v1.0.0"
+            major-result: "v1.0.0"
+            major-tag-result: "v1"  
     steps:
       - uses: actions/checkout@v2
         with:
