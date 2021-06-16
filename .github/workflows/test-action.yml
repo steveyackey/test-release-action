@@ -16,7 +16,9 @@ jobs:
       
       - name: Bump version and push tag
         run: |
-          sudo apt-get install -yq node-semver
+          if [[ $(which semver) == "" ]]; then
+            npm i semver
+          fi
           export currentTag=$(git tag -l --sort=-v:refname | grep v* | head -n 1)
           echo "Current Tag: $currentTag"
           export commitMessage="${{ github.event.head_commit.message }}"
