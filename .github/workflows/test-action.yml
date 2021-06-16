@@ -14,6 +14,7 @@ jobs:
             patch-result: "v1.0.1"
             minor-result: "v1.1.0"
             major-result: "v2.0.0"
+            major-tag-result: "v2"
           - initial-tag: "v1.0.1"
             patch-result: "v1.0.2"
             minor-result: "v1.1.0"
