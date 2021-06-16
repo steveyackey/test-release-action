@@ -33,9 +33,9 @@ jobs:
         uses: ./
         id: semver-bump-action-patch
         with:
-          INPUT_DRY_RUN: "true"
-          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
-          INPUT_COMMIT_MESSAGE: "Testing patch version bump. #patch"
+          dry-run: "true"
+          initial-tag: ${{ matrix.initial-tag }}
+          commit-message: "Testing patch version bump. #patch"
 
       - name: Verify Results
         run: |
@@ -49,9 +49,9 @@ jobs:
         uses: ./
         id: semver-bump-action-minor
         with:
-          INPUT_DRY_RUN: "true"
-          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
-          INPUT_COMMIT_MESSAGE: "Testing minor version bump. #minor"
+          dry-run: "true"
+          initial-tag: ${{ matrix.initial-tag }}
+          commit-message: "Testing minor version bump. #minor"
 
       - name: Verify Results
         run: |
@@ -65,9 +65,9 @@ jobs:
         uses: ./
         id: semver-bump-action-major
         with:
-          INPUT_DRY_RUN: "true"
-          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
-          INPUT_COMMIT_MESSAGE: "Testing major version bump. #major"
+          dry-run: "true"
+          initial-tag: ${{ matrix.initial-tag }}
+          commit-message: "Testing major version bump. #major"
 
       - name: Verify Results
         run: |
@@ -81,9 +81,9 @@ jobs:
         uses: ./
         id: semver-bump-action-major-tag
         with:
-          INPUT_DRY_RUN: "true"
-          INPUT_INITIAL_TAG: ${{ matrix.initial-tag }}
-          INPUT_COMMIT_MESSAGE: "Testing major version bump. #major"
+          dry-run: "true"
+          initial-tag: ${{ matrix.initial-tag }}
+          commit-message: "Testing major version bump. #major"
 
       - name: Verify Results
         run: |
