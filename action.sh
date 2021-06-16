@@ -31,7 +31,7 @@ echo "::set-output name=resulting-semver-tag::$resulting_semver_tag"
 echo "::set-output name=resulting-major-version-tag::$resulting_major_version"
 
 if [[ "$INPUT_DRY_RUN" == "true" ]]; then
-  echo "Dry-run enabled."
+  echo "Dry-run enabled. Skipping tagging commit."
   exit 0 
 fi
 

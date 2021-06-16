@@ -1,0 +1,16 @@
+name: Release Action Version
+
+on: 
+  push:
+    branches:
+      - "main"
+
+jobs:
+  release-action:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+          

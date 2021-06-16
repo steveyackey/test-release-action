@@ -13,6 +13,10 @@ jobs:
             patch-result: "v1.0.1"
             minor-result: "v1.1.0"
             major-result: "v2.0.0"
+          - initial-tag: "v1.0.1"
+            patch-result: "v1.0.2"
+            minor-result: "v1.1.0"
+            major-result: "v2.0.0"
             major-tag-result: "v2"
           - initial-tag: "v1"
             patch-result: "v1.0.1"
@@ -27,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: '0'
+          fetch-depth: 0
 
       - name: Run semver-bump-action - patch
         uses: ./
